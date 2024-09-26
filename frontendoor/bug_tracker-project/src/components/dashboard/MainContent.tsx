@@ -155,8 +155,9 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, Users } from 'lucide-react';
-import { Avatar } from "../ui/avatar";
+// import { Avatar } from "../ui/avatar";
 import { Label } from "../ui/label";
+import Avatar from 'react-avatar';
 
 interface MainContentProps {
   userName: string;
@@ -199,7 +200,7 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
           <Card className="w-full bg-gray-800">
             <CardHeader>
               <CardTitle className="text-xl flex items-center text-white">
-                <div className="w-8 h-8 bg-gray-300  rounded-full mr-2"></div>
+              <Avatar githubHandle="sitebase" size="60" round={true} />
                 My tasks
               </CardTitle>
             </CardHeader>
@@ -221,21 +222,21 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
             <div className="mb-6">
               <h2 className="text-lg font-bold mb-4">Projects</h2>
               <div className="flex items-center mb-4">
-                <Button variant="outline" className="mr-2">+</Button>
+                <Button variant="outline" className="mr-2 bg-gray-700 text-white">+</Button>
                 <Label>Create project</Label>
               </div>
               <div className="flex items-center mb-4">
-                <Avatar className="mr-2" src="project-icon.png" alt="Project Icon" />
+              <Avatar githubHandle="" size={60} round="20px" />
                 <Label>bug tracker system</Label>
               </div>
               <div className="mt-4">
                 <h3 className="text-sm font-semibold mb-2">Recommended projects</h3>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <Avatar src="recommended-icon.png" className="mr-2" />
+                  <Avatar name="Sam Doe" size={60} round="20px" />
                     <div>
                       <Label>Bug Tracking</Label>
-                      <p className="text-xs text-gray-400">Sam Natangwe Shingenge and others</p>
+                      <p className="text-xs text-gray-400">Sam Doe and others</p>
                     </div>
                   </div>
                   <Button variant="default" size="sm">Join</Button>
@@ -250,14 +251,14 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
             <div className="mb-6">
               <h2 className="text-lg font-bold mb-4">People</h2>
               <div className="flex items-center mb-4">
-                <Button variant="outline" className="mr-2">+</Button>
+                <Button variant="outline" className="mr-2 bg-gray-700 text-white">+</Button>
                 <Label>Invite</Label>
               </div>
               <div className="mt-4">
                 <h3 className="text-sm font-semibold mb-2">Frequent collaborators</h3>
                 <div className="flex items-center">
-                  <Avatar className="mr-2 bg-pink-500 text-white">SS</Avatar>
-                  <Label>Sam Natangwe Shingenge</Label>
+                <Avatar name="Sam Doe" size="60" round={true} />
+                  <Label>Sam Doe</Label>
                 </div>
               </div>
             </div>
