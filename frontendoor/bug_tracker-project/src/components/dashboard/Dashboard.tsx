@@ -1,17 +1,37 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Sidebar from './Sidebar';
 import MainContent from './MainContent';
 import { Input } from "@/components/ui/input";
 import Avatar from 'react-avatar';
+import Projects from '../../pages/Projects';
+import { string } from 'prop-types';
 
 
 const Dashboard: React.FC = () => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
+  const [activeSection, setActiveSection] = useState('home');
+
+  const handleNavigation = (section: string) => {
+    setActiveSection(section);
+  };
+
+  const renderContent = () => {
+    switch (activeSection) {
+      case 'Home':
+        return <MainContent userName={user.fullName || 'User'} />;
+      case 'projects':
+        return <Projects />;
+      // Add case for other Sections
+      default:
+        return <MainContent userName={user.fullName || 'User'} />;
+      
+    }
+  }
 
 
   return (
     <div className="flex h-screen bg-gray-100">
-      <Sidebar />
+      <Sidebar onNavigate={handleNavigation} />
       <div className="flex-1 flex flex-col overflow-hidden">
         <header className="bg-gray-800 shadow-sm p-4 flex justify-between items-center">
           <Input 
@@ -30,7 +50,7 @@ const Dashboard: React.FC = () => {
           
         </header>
         <main className="flex-1 overflow-x-hidden overflow-y-auto">
-          <MainContent userName={user.fullName || 'User'} />
+          {renderContent()}
         </main>
       </div>
     </div>
@@ -38,4 +58,7 @@ const Dashboard: React.FC = () => {
 };
 
 export default Dashboard;
+
+
+
 
