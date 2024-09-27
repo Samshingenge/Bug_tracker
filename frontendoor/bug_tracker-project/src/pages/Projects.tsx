@@ -119,6 +119,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AuthContext } from '../contexts/AuthContext';  // Adjust this path as needed
+import axios from 'axios';  // Make sure to import axios at the top of your file
 
 interface Project {
   _id: string;
@@ -127,6 +128,7 @@ interface Project {
   createdAt: string;
   updatedAt: string;
   ownerId: string;
+  
 }
 
 const Projects: React.FC = () => {
@@ -161,16 +163,46 @@ const Projects: React.FC = () => {
     setNewProject(prev => ({ ...prev, [name]: value }));
   };
 
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await api.post<Project>('/projects', newProject);
+      if (!authContext?.user) {
+        throw new Error('User not authenticated');
+      }
+      
+      const projectData = {
+        name: newProject.name,
+        description: newProject.description
+      };
+      
+      console.log('Sending project data:', projectData);
+      console.log('Authorization header:', `Bearer ${localStorage.getItem('token')?.substring(0, 20)}...`);
+      
+      const response = await api.post<Project>('/projects', projectData);
+      
+      console.log('Received response:', response.data);
       setProjects(prev => [...prev, response.data]);
       setNewProject({ name: '', description: '' });
       setError('');
     } catch (err) {
-      setError('Failed to create project');
-      console.error('Error creating project:', err);
+      console.error('Full error object:', err);
+      if (axios.isAxiosError(err)) {
+        console.error('Request config:', {
+          url: err.config?.url,
+          method: err.config?.method,
+          headers: err.config?.headers,
+          data: err.config?.data
+        });
+        console.error('Response data:', err.response?.data);
+        console.error('Response status:', err.response?.status);
+        console.error('Response headers:', err.response?.headers);
+        setError(`Failed to create project: ${err.response?.data?.message || err.message}`);
+      } else if (err instanceof Error) {
+        setError(`Failed to create project: ${err.message}`);
+      } else {
+        setError('An unexpected error occurred');
+      }
     }
   };
 

@@ -1,28 +1,4 @@
-// const mongoose = require('mongoose');
-
-// const ProjectSchema = new mongoose.Schema({
-//   name: {
-//     type: String,
-//     required: true,
-//     trim: true
-//   },
-//   description: {
-//     type: String,
-//     required: true
-//   },
-//   ownerId: {
-//     type: mongoose.Schema.Types.ObjectId,
-//     ref: 'User',
-//     required: true
-//   }
-// }, {
-//   timestamps: true
-// });
-
-// module.exports = mongoose.model('Project', ProjectSchema);  
-
-
-const mongoose = require('mongoose');
+ const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
   name: {
@@ -34,7 +10,7 @@ const projectSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  user: {
+  user: {  // Changed from 'ownerId' to 'user' to match the database
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'User'
