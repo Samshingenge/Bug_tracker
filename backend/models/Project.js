@@ -1,30 +1,53 @@
 // const mongoose = require('mongoose');
 
-// const projectSchema = new mongoose.Schema({
-//   name: { type: String, required: true },
-//   description: { type: String },
-//   users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
-// }, { timestamps: true });
+// const ProjectSchema = new mongoose.Schema({
+//   name: {
+//     type: String,
+//     required: true,
+//     trim: true
+//   },
+//   description: {
+//     type: String,
+//     required: true
+//   },
+//   ownerId: {
+//     type: mongoose.Schema.Types.ObjectId,
+//     ref: 'User',
+//     required: true
+//   }
+// }, {
+//   timestamps: true
+// });
 
-// module.exports = mongoose.model('Project', projectSchema);
+// module.exports = mongoose.model('Project', ProjectSchema);  
 
 
 const mongoose = require('mongoose');
 
 const projectSchema = new mongoose.Schema({
-    name: { 
-        type: String, required: true 
-    },
-    description: {
-         type: String 
-        },
-    status: { 
-        type: String, default: 'In Progress'
-     },  // Add status field with default value
-    user: { 
-        type: mongoose.Schema.Types.ObjectId, ref: 'User' 
-    }
-}, { timestamps: true });
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  description: {
+    type: String,
+    required: true
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User'
+  },
+  status: {
+    type: String,
+    enum: ['Not Started', 'In Progress', 'Completed'],
+    default: 'Not Started'
+  }
+}, {
+  timestamps: true
+});
 
-module.exports = mongoose.model('Project', projectSchema);
+const Project = mongoose.model('Project', projectSchema);
 
+module.exports = Project;

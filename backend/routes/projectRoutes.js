@@ -1,52 +1,43 @@
-
 // const express = require('express');
 // const router = express.Router();
-// const { createProject, getAllProjects, getProjectById, updateProject, deleteProject } = require('../controllers/projectController');
-// const { authMiddleware } = require('../middleware/authMiddleware');
-
-// // Create a new project
-// router.post('/', authMiddleware, createProject);
+// const { getAllProjects, createProject } = require('../controllers/projectController');
+// const { protect } = require('../middleware/authMiddleware');
 
 // // Get all projects
-// router.get('/', authMiddleware, getAllProjects);
+// router.get('/', protect, getAllProjects);
 
-// // Get project by ID
-// router.get('/:id', authMiddleware, getProjectById);
+// // Create a new project
+// router.post('/', protect, createProject);
 
-// // Update a project
-// router.put('/:id', authMiddleware, updateProject);
-
-// // Delete a project
-// router.delete('/:id', authMiddleware, deleteProject);
-
-// // Export the router
 // module.exports = router;
 
 
+// const express = require('express');
+// const router = express.Router();
+// const { getAllProjects, createProject } = require('../controllers/projectController');
+// const { protect } = require('../middleware/authMiddleware');
 
+// router.route('/')
+//   .get(protect, getAllProjects)
+//   .post(protect, createProject);
 
-
+// module.exports = router;
 
 const express = require('express');
 const router = express.Router();
-const { createProject, getAllProjects, getProjectById, updateProject, deleteProject } = require('../controllers/projectController');
-// const { authMiddleware } = require('../middleware/authMiddleware');
+const Project = require('../models/Project'); // Assuming you have a Project model
 
-// Create a new project
-router.post('/', createProject);
+// Route to get all projects
+router.get('/', async (req, res) => {
+  try {
+    const projects = await Project.find();  // Fetch all projects from MongoDB
+    res.json(projects);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 
-// Get all projects
-router.get('/', getAllProjects);
 
-// Get project by ID
-router.get('/:id', getProjectById);
 
-// Update a project
-router.put('/:id', updateProject);
-
-// Delete a project
-router.delete('/:id', deleteProject);
-
-// Export the router
 module.exports = router;
-

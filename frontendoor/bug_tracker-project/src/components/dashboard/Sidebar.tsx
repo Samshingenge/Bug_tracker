@@ -1,96 +1,150 @@
-// import React from 'react';
-// import { Link } from 'react-router-dom';
-// import { Home, Briefcase, Bug, ChevronLeft, Mail, ListTodo } from 'lucide-react';
-// import { Button } from '@/components/ui/button';
+// import React, { useState } from 'react';
+// import { Home, CheckSquare, Inbox, BarChart2, Folder, Users, Briefcase, Mail, ChevronDown, PlusCircle, MessageSquare, FileText, User } from 'lucide-react';
+// import { Button } from "@/components/ui/button";
+// import {
+//   DropdownMenu,
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
 
-// const Sidebar: React.FC<{ isOpen: boolean, toggleSidebar: () => void }> = ({ isOpen, toggleSidebar }) => {
+// const Sidebar: React.FC = () => {
+//   const [isOpen, setIsOpen] = useState(false);
+
+//   const menuItems = [
+//     { icon: Home, label: 'Home' },
+//     { icon: CheckSquare, label: 'My tasks' },
+//     { icon: Inbox, label: 'Inbox' },
+//     { icon: BarChart2, label: 'Insights' },
+//     { icon: Folder, label: 'Projects' },
+//     { icon: Users, label: 'Team' },
+//     { icon: Briefcase, label: 'My workspace' },
+//   ];
+
+//   const dropdownItems = [
+//     { icon: PlusCircle, label: 'Task' },
+//     { icon: FileText, label: 'Project' },
+//     { icon: MessageSquare, label: 'Message' },
+//     { icon: Briefcase, label: 'Portfolio' },
+//     { icon: User, label: 'Invite' },
+//   ];
+
 //   return (
-//     <div
-//       className={`bg-gray-800 text-white w-64 space-y-6 py-7 px-2 absolute inset-y-0 left-0 transform ${
-//         isOpen ? 'translate-x-0' : '-translate-x-full'
-//       } md:relative md:translate-x-0 transition duration-200 ease-in-out`}
-//     >
-      
-
-    
-
-//       {/* Navigation Links */}
-//       <nav className="space-y-3 mt-4">
-//         <Button asChild variant="ghost" className="w-full justify-start">
-//           <Link to="/" className="flex items-center space-x-2">
-//             <Home className="h-5 w-5" />
-//             <span>Home</span>
-//           </Link>
-//         </Button>
-//         <Button asChild variant="ghost" className="w-full justify-start">
-//           <Link to="/Home" className="flex items-center space-x-2">
-//             <ListTodo className="h-5 w-5" />
-//             <span>My task</span>
-//           </Link>
-//         </Button>
-//         <Button asChild variant="ghost" className="w-full justify-start">
-//           <Link to="/email" className="flex items-center space-x-2">
-//             <Mail className="h-5 w-5" />
-//             <span>Inbox</span>
-//           </Link>
-//         </Button>
-//         <Button asChild variant="ghost" className="w-full justify-start">
-//           <Link to="/projects" className="flex items-center space-x-2">
-//             <Briefcase className="h-5 w-5" />
-//             <span>Projects</span>
-//           </Link>
-//         </Button>
-//         <Button asChild variant="ghost" className="w-full justify-start">
-//           <Link to="/bugs" className="flex items-center space-x-2">
-//             <Bug className="h-5 w-5" />
-//             <span>Bugs</span>
-//           </Link>
-//         </Button>
+//     <div className="bg-gray-800 text-white h-screen w-64 flex flex-col">
+//       <div className="p-4">
+//         <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+//           <DropdownMenuTrigger asChild>
+//             <Button variant="outline" className="w-full justify-between bg-red-600 text-white">
+//               <span className="flex items-center">
+//                 <PlusCircle className="mr-2 h-4 w-4" /> Create
+//               </span>
+//               <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+//             </Button>
+//           </DropdownMenuTrigger>
+//           <DropdownMenuContent className="w-56 bg-gray-700">
+//             {dropdownItems.map((item, index) => (
+//               <DropdownMenuItem key={index} className="text-white hover:bg-gray-600">
+//                 <item.icon className="mr-2 h-4 w-4" />
+//                 <span>{item.label}</span>
+//               </DropdownMenuItem>
+//             ))}
+//           </DropdownMenuContent>
+//         </DropdownMenu>
+//       </div>
+//       <nav className="flex-1">
+//         {menuItems.map((item, index) => (
+//           <Button key={index} variant="ghost" className="w-full justify-start text-white">
+//             <item.icon className="mr-2 h-4 w-4" />
+//             {item.label}
+//           </Button>
+//         ))}
 //       </nav>
+//       <div className="p-4">
+//         <Button variant="ghost" className="w-full justify-start text-white">
+//           <Mail className="mr-2 h-4 w-4" />
+//           Invite teammates
+//         </Button>
+//       </div>
 //     </div>
 //   );
 // };
 
-// export default Sidebar
+// export default Sidebar;
 
+//============================================Try 1================
 
-
-
-import React from 'react';
-import { Home, CheckSquare, Inbox, BarChart2, Folder, Users, Briefcase, Mail } from 'lucide-react';
+import React, { useState } from 'react';
+import { Home, CheckSquare, Inbox, BarChart2, Folder, Users, Briefcase, Mail, ChevronDown, PlusCircle, MessageSquare, FileText, User } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 const Sidebar: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+
   const menuItems = [
-    { icon: Home, label: 'Home' },
-    { icon: CheckSquare, label: 'My tasks' },
-    { icon: Inbox, label: 'Inbox' },
-    { icon: BarChart2, label: 'Insights' },
-    { icon: Folder, label: 'Projects' },
-    { icon: Users, label: 'Team' },
-    { icon: Briefcase, label: 'My workspace' },
+    { icon: Home, label: 'Home', href: '/' },
+    { icon: CheckSquare, label: 'My tasks', href: '/tasks' },
+    { icon: Inbox, label: 'Inbox', href: '/inbox' },
+    { icon: BarChart2, label: 'Insights', href: '/insights' },
+    { icon: Folder, label: 'Projects', href: '/projects' },
+    { icon: Users, label: 'Team', href: '/team' },
+    { icon: Briefcase, label: 'My workspace', href: '/workspace' },
+  ];
+
+  const dropdownItems = [
+    { icon: PlusCircle, label: 'Task', href: '/create/task' },
+    { icon: FileText, label: 'Project', href: '/create/newProject' },
+    { icon: MessageSquare, label: 'Message', href: '/create/message' },
+    { icon: Briefcase, label: 'Portfolio', href: '/create/portfolio' },
+    { icon: User, label: 'Invite', href: '/invite' },
   ];
 
   return (
     <div className="bg-gray-800 text-white h-screen w-64 flex flex-col">
       <div className="p-4">
-        <Button variant="outline" className="w-full justify-start bg-red-600">
-          <span className="mr-2">+</span> Create
-        </Button>
+        <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
+          <DropdownMenuTrigger asChild>
+            <Button variant="outline" className="w-full justify-between bg-red-600 text-white">
+              <span className="flex items-center">
+                <PlusCircle className="mr-2 h-4 w-4" /> Create
+              </span>
+              <ChevronDown className={`h-4 w-4 transition-transform ${isOpen ? 'rotate-180' : ''}`} />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56 bg-gray-700">
+            {dropdownItems.map((item, index) => (
+              <DropdownMenuItem key={index} className="text-white hover:bg-gray-600">
+                <a href={item.href} className="flex items-center w-full">
+                  <item.icon className="mr-2 h-4 w-4" />
+                  <span>{item.label}</span>
+                </a>
+              </DropdownMenuItem>
+            ))}
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
       <nav className="flex-1">
         {menuItems.map((item, index) => (
-          <Button key={index} variant="ghost" className="w-full justify-start text-white">
-            <item.icon className="mr-2 h-4 w-4" />
-            {item.label}
-          </Button>
+          <a key={index} href={item.href} className="block">
+            <Button variant="ghost" className="w-full justify-start text-white">
+              <item.icon className="mr-2 h-4 w-4" />
+              {item.label}
+            </Button>
+          </a>
         ))}
       </nav>
       <div className="p-4">
-        <Button variant="ghost" className="w-full justify-start text-white">
-          <Mail className="mr-2 h-4 w-4" />
-          Invite teammates
-        </Button>
+        <a href="/invite" className="block">
+          <Button variant="ghost" className="w-full justify-start text-white">
+            <Mail className="mr-2 h-4 w-4" />
+            Invite teammates
+          </Button>
+        </a>
       </div>
     </div>
   );

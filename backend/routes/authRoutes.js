@@ -17,10 +17,23 @@
 
 
 const express = require('express');
-const { register, login } = require('../controllers/authController');
 const router = express.Router();
+const { protect } = require('../middleware/authMiddleware');
+const { login, register, getUserProfile } = require('../controllers/authController');
 
-router.post('/register', register);
 router.post('/login', login);
+router.post('/register', register);
+router.get('/user', protect, getUserProfile);
+
+// Sample user data - replace with actual authentication logic
+// router.get('/user', (req, res) => {
+//     const user = {
+//       id: '12345',
+//       name: 'John Doe',
+//       email: 'john.doe@example.com',
+//     };
+  
+//     res.json(user); // Send the user data to the frontend
+//   });
 
 module.exports = router;

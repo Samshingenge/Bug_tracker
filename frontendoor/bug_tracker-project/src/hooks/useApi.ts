@@ -39,50 +39,62 @@
 
 
 
+// import axios, { AxiosError } from 'axios';
+
+// type HttpMethod = 'get' | 'post' | 'put' | 'delete';
+
+// const API_BASE_URL = '/api'; // Update to use the proxy path
+
+// export const useApi = () => {
+//   const request = async (method: HttpMethod, url: string, data?: any) => {
+//     const token = localStorage.getItem('token');
+    
+//     try {
+//       const response = await axios({
+//         method, 
+//         url: `${API_BASE_URL}${url}`,
+//         data,
+//         headers: {
+//           'Content-Type': 'application/json',
+//           'Authorization': token ? `Bearer ${token}` : undefined,
+//         },
+//       });
+//       return response.data;
+//     } catch (error) {
+//       if (axios.isAxiosError(error)) {
+//         console.error(`API request failed: ${error.response?.data?.message || error.message}`);
+//         throw new Error(error.response?.data?.message || error.message);
+//       } else {
+//         console.error('API request failed: Unknown error');
+//         throw new Error('API request failed: Unknown error');
+//       }
+//     }
+//   };
+
+//   return { request };
+// };
+
 
 import axios from 'axios';
 
-type HttpMethod = 'get' | 'post' | 'put' | 'delete';
+const api = axios.create({
+  baseURL: 'http://localhost:5000/api', // Adjust this to match your backend URL
+});
 
-const API_BASE_URL = '/api'; // Update to use the proxy path
-
-export const useApi = () => {
-  const request = async (method: HttpMethod, url: string, data?: any) => {
-    const token = localStorage.getItem('token'); // Assume token is stored in localStorage
-    
-    try {
-      const response = await axios({         // Error found
-        method, 
-        url: `${API_BASE_URL}${url}`, // Use the proxy for all API requests
-        data,
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`,  // Add token to the Authorization header
-        },
-      });
-      return response.data;
-    } catch (error) {
-      if (error instanceof Error) {
-        console.error(`API request failed: ${error.message}`);
-        throw new Error(`API request failed: ${error.message}`);
-      } else {
-        console.error('API request failed: Unknown error');
-        throw new Error('API request failed: Unknown error');
-      }
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
     }
-  };
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 
-  return { request };
-};
-
-
-// import axios from "axios";
-
-// export default axios.create({
-//   baseURL: 'http://localhost:5000'
-// });
-
-
+export default api;
 
 
 
