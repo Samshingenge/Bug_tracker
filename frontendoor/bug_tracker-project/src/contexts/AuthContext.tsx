@@ -113,6 +113,94 @@
 
 
 
+// import React, { createContext, useState, useEffect, useCallback } from 'react';
+// import api from '../services/api';
+
+// interface User {
+//   _id: string;  
+//   name: string;
+//   email: string;
+//   //Add any other user properties
+// }
+
+// interface AuthContextType {
+//   user: User | null;
+//   loading: boolean;
+//   login: (email: string, password: string) => Promise<void>;
+//   logout: () => void;
+//   refreshToken: any
+// }
+
+// export const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
+//   const [user, setUser] = useState<User | null>(null);
+//   const [loading, setLoading] = useState(true);
+
+//   const fetchUser = useCallback(async () => {
+//     try {
+//       const token = localStorage.getItem('token');
+//       if (!token) {
+//         setUser(null);
+//         return null;
+//       }
+//       const response = await api.get('/auth/user');
+//       setUser(response.data);
+//       return response.data;
+//     } catch (error) {
+//       console.error('Failed to fetch user data:', error);
+//       setUser(null);
+//       localStorage.removeItem('token');
+//       delete api.defaults.headers.common['Authorization'];
+//       throw error;
+//     }
+//   }, []);
+
+//   useEffect(() => {
+//     fetchUser().finally(() => setLoading(false));
+//   }, [fetchUser]);
+
+//   const login = async (email: string, password: string) => {
+//     try {
+//       const response = await api.post<{token: string, user: User}>('/auth/login', { email, password });
+//       localStorage.setItem('token', response.data.token);
+//       api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+//       setUser(response.data.user);
+//     } catch (error) {
+//       console.error('Login failed:', error);
+//       throw error;
+//     }
+//   };
+
+//   const logout = () => {
+//     localStorage.removeItem('token');
+//     delete api.defaults.headers.common['Authorization'];
+//     setUser(null);
+//   };
+
+//   const refreshToken = async () => {
+//     try {
+//       const response = await api.post('/auth/refresh-token');
+//       localStorage.setItem('token', response.data.token);
+//       api.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+//     } catch (error) {
+//       console.error('Failed to refresh token:', error);
+//       logout();
+//     }
+//   };
+
+//   return (
+//     <AuthContext.Provider value={{ user, loading, login, logout, refreshToken }}>
+//       {children}
+//     </AuthContext.Provider>
+//   );
+// };
+
+
+
+//==========================================Multiple Users==========================
+
+
 import React, { createContext, useState, useEffect, useCallback } from 'react';
 import api from '../services/api';
 
@@ -120,7 +208,7 @@ interface User {
   _id: string;  
   name: string;
   email: string;
-  //Add any other user properties
+  // Add any other user properties
 }
 
 interface AuthContextType {
@@ -128,7 +216,7 @@ interface AuthContextType {
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
-  refreshToken: any
+  refreshToken: () => Promise<void>;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -142,22 +230,26 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
       const token = localStorage.getItem('token');
       if (!token) {
         setUser(null);
+        setLoading(false);
         return null;
       }
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       const response = await api.get('/auth/user');
       setUser(response.data);
+      setLoading(false);
       return response.data;
     } catch (error) {
       console.error('Failed to fetch user data:', error);
       setUser(null);
       localStorage.removeItem('token');
       delete api.defaults.headers.common['Authorization'];
+      setLoading(false);
       throw error;
     }
   }, []);
 
   useEffect(() => {
-    fetchUser().finally(() => setLoading(false));
+    fetchUser();
   }, [fetchUser]);
 
   const login = async (email: string, password: string) => {
@@ -194,4 +286,12 @@ export const AuthProvider: React.FC<{children: React.ReactNode}> = ({ children }
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const useAuth = () => {
+  const context = React.useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 };

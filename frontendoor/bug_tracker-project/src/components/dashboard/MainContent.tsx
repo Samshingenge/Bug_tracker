@@ -3,7 +3,8 @@ import { Outlet } from 'react-router-dom';
 import { DragDropContext, Droppable, Draggable, DropResult } from 'react-beautiful-dnd';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { CheckCircle, Users } from 'lucide-react';
+import { CheckCircle, Users,ChevronDown } from 'lucide-react';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "../ui/label";
 import Avatar from 'react-avatar';
 
@@ -46,20 +47,21 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
     switch (id) {
       case 'myTasks':
         return (
-          <Card className="w-full bg-gray-800">
+          <Card className="w-full bg-gradient-to-br from-zinc-800 to-zinc-900 border-zinc-700 hover:border-zinc-600 transition-colors">
             <CardHeader>
               <CardTitle className="text-xl flex items-center text-white">
-                <Avatar githubHandle="sitebase" size="60" round={true} />
+                <Avatar name={userName} size="60" round={true} />
                 My tasks
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex gap-4 mb-4">
-                <Button variant="ghost" className="flex-1 text-white">Upcoming</Button>
-                <Button variant="ghost" className="flex-1 text-white">Overdue (2)</Button>
-                <Button variant="ghost" className="flex-1 text-white">Completed</Button>
+                <Button variant="ghost" className="flex-1 bg-gradient-to-br from-zinc-800 to-zinc-900  text-white">Upcoming</Button>
+                <Button variant="ghost" className="flex-1 bg-gradient-to-br from-zinc-800 to-zinc-900  text-white">Overdue (2)</Button>
+                <Button variant="ghost" className="flex-1 bg-gradient-to-br from-zinc-800 to-zinc-900  text-white">Completed</Button>
               </div>
-              <Button variant="outline" className="w-full justify-start">
+              <hr className="border-zinc-600 m-4 w-100" />
+              <Button variant="outline" className="w-30 bg-zinc-800 text-white justify-start">
                 <span className="mr-2">+</span> Create task
               </Button>
             </CardContent>
@@ -67,25 +69,26 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
         );
       case 'projects':
         return (
-          <Card className="w-full bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+          <Card className="w-full bg-gradient-to-br from-zinc-800 to-zinc-900 border-zinc-700 hover:border-zinc-600 transition-colors text-white p-6 rounded-lg shadow-lg">
             <div className="mb-6">
               <h2 className="text-lg font-bold mb-4">Projects</h2>
-              <div className="flex items-center mb-4">
-                <Button variant="outline" className="mr-2 bg-gray-700 text-white">+</Button>
+              <hr className="border-zinc-600 m-4 w-100" />
+              <div className="flex items-center mb-4 ml-1">
+                <Button variant="outline" className="mr-2 w-12 h-12 bg-gray-700 text-white">+</Button>
                 <Label>Create project</Label>
               </div>
               <div className="flex items-center mb-4">
-                <Avatar githubHandle="" size="60" round="20px" />
-                <Label>bug tracker system</Label>
+                <Avatar githubHandle="" size="50" round="20px" />
+                <Label className='ml-2'>bug tracker system</Label>
               </div>
               <div className="mt-4">
                 <h3 className="text-sm font-semibold mb-2">Recommended projects</h3>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
-                    <Avatar name={userName} size="60" round="20px" />
-                    <div>
+                    <Avatar name={userName} size="50" round="20px" />
+                    <div className='ml-2'>
                       <Label>Bug Tracking</Label>
-                      <p className="text-xs text-gray-400">{userName} others</p>
+                      <p className="text-xs text-gray-400">{userName} and others</p>
                     </div>
                   </div>
                   <Button variant="default" size="sm">Join</Button>
@@ -96,18 +99,19 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
         );
       case 'people':
         return (
-          <Card className="w-full bg-gray-800 text-white p-6 rounded-lg shadow-lg">
+          <Card className="w-full bg-gradient-to-br from-zinc-800 to-zinc-900 border-zinc-700 hover:border-zinc-600 transition-colors text-white p-6 rounded-lg shadow-lg">
             <div className="mb-6">
               <h2 className="text-lg font-bold mb-4">People</h2>
+              <hr className="border-zinc-600 m-4 w-100" />
               <div className="flex items-center mb-4">
-                <Button variant="outline" className="mr-2 bg-gray-700 text-white">+</Button>
+                <Button variant="outline" className="mr-2 w-12 h-12 bg-gray-700 text-white">+</Button>
                 <Label>Invite</Label>
               </div>
               <div className="mt-4">
                 <h3 className="text-sm font-semibold mb-2">Frequent collaborators</h3>
                 <div className="flex items-center">
-                  <Avatar name={userName} size="60" round={true} />
-                  <Label>{userName}</Label>
+                  <Avatar name={userName} size="50" round={true} />
+                  <Label className='ml-2'>{userName}</Label>
                 </div>
               </div>
             </div>
@@ -115,7 +119,7 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
         );
       case 'dragAndDrop':
         return (
-          <div className="w-full flex items-center justify-center bg-gray-800 text-white h-64 rounded-lg shadow-md p-8">
+          <div className="w-full flex items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-900 border border-zinc-700 hover:border-zinc-600 transition-colors text-white h-64 rounded-lg shadow-md p-8">
             <div className="text-center">
               <p className="text-lg mb-4">Drag and drop new widgets</p>
               <Button variant="outline" className="bg-gray-700 text-white">
@@ -133,28 +137,41 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">Home</h1>
+    <div className="p-6 bg-gradient-to-br from-zinc-900 to-zinc-700 border border-zinc-700 hover:border-zinc-600 transition-colors">
+      <h1 className="text-3xl font-bold mb-4 text-white">Home</h1>
       <div className="mb-6">
-        <p className="text-sm text-gray-500">{currentDate}</p>
-        <h2 className="text-4xl font-bold">{greeting}, {userName}</h2>
+        <p className="text-sm text-gray-300">{currentDate}</p>
+        <h2 className="text-4xl font-bold text-white">{greeting}, {userName}</h2>
       </div>
 
       {/* Task Overview */}
       <div className="flex gap-4 mb-6 ">
-        <Card className="flex-1 bg-gray-800">
-          <CardContent className="flex items-center text-white p-4">
-            <CheckCircle className="mr-2" />
-            <span>1 task completed</span>
-          </CardContent>
-        </Card>
-        <Card className="flex-1 bg-gray-800">
-          <CardContent className="flex items-center text-white p-4">
-            <Users className="mr-2" />
+      <Card className="bg-zinc-900 border-zinc-800">
+      <CardContent className="flex items-center justify-between p-2">
+        <Select defaultValue="week">
+          <SelectTrigger className="bg-transparent border-none text-zinc-300 hover:bg-zinc-800 focus:bg-zinc-800 w-[140px]">
+            <SelectValue placeholder="Select view" />
+            <ChevronDown className="h-4 w-4 opacity-50" />
+          </SelectTrigger>
+          <SelectContent className="bg-zinc-900 border-zinc-700">
+            <SelectItem className='text-white' value="week">My week</SelectItem>
+            <SelectItem className='text-white' value="month">My month</SelectItem>
+          </SelectContent>
+        </Select>
+        
+        <div className="flex items-center space-x-4 text-zinc-300 text-sm">
+          <div className="flex items-center">
+            <CheckCircle className="mr-2 h-4 w-4" />
+            <span>2 tasks completed</span>
+          </div>
+          <div className="flex items-center">
+            <Users className="mr-2 h-4 w-4" />
             <span>0 collaborators</span>
-          </CardContent>
-        </Card>
-        <Button variant="outline" className="bg-gray-800 text-white">Customize</Button>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+        <Button variant="outline" className="bg-zinc-800 text-white">Customize</Button>
       </div>
 
       {/* Draggable Components */}
@@ -183,8 +200,8 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
       </DragDropContext>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-x-hidden overflow-y-auto bg-gray-200">
-        <div className="container mx-auto px-6 py-8">
+      <main hidden className="flex-1 overflow-x-hidden overflow-y-auto bg-gradient-to-br from-zinc-900 to-zinc-700 border border-zinc-700 hover:border-zinc-600 transition-colors">
+        <div className="container mx-auto px-6 py-8 bg-zinc-900">
           <Outlet />
         </div>
       </main>

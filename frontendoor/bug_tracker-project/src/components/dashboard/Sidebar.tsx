@@ -125,7 +125,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="bg-gray-800 text-white h-screen w-64 flex flex-col">
+    <div className="bg-gradient-to-br from-zinc-800 to-zinc-900 border-zinc-700 hover:border-zinc-600 transition-colors text-white h-screen w-64 flex flex-col">
       <div className="p-4">
         <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
           <DropdownMenuTrigger asChild>
