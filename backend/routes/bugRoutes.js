@@ -22,10 +22,19 @@
 // module.exports = router;
 
 const express = require('express');
-const { createBug } = require('../controllers/bugController');
 const router = express.Router();
+const { checkPermission } = require('../middleware/auth');
 
-router.post('/', createBug);
+// Protected route example
+router.post('/create', checkPermission('create'), (req, res) => {
+  // Create bug logic here
+});
+
+router.get('/', checkPermission('read'), (req, res) => {
+  // Get bugs logic here
+});
+
+// ... other routes
 
 module.exports = router;
 

@@ -8,6 +8,7 @@ import { Bug } from '../types/Bug';
 import { any } from 'zod';
 
 
+
 // const mockBugs: Bug[] = [
 //   { id: 1, title: 'Login Page Crash', description: 'App crashes when entering special characters in login form', severity: 'High', status: 'Open' },
 //   { id: 2, title: 'Incorrect Total Calculation', description: 'Order total is incorrect when applying discount code', severity: 'Medium', status: 'In Progress' },

@@ -179,22 +179,23 @@ const RegistrationForm = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="role">Your Role</Label>
-            <Select onValueChange={handleRoleChange} value={formData.role}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select your role" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="developer">Developer</SelectItem>
-                <SelectItem value="designer">Designer</SelectItem>
-                <SelectItem value="product_manager">Product Manager</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
+  <Label htmlFor="role">Your Role</Label>
+  <Select onValueChange={handleRoleChange} value={formData.role}>
+    <SelectTrigger className="bg-zinc-800 text-zinc-400 cursor-pointer">
+      <SelectValue placeholder="Select your role" />
+    </SelectTrigger>
+    <SelectContent className="bg-zinc-800 text-zinc-400">
+      <SelectItem value="admin" className="cursor-pointer">Admin</SelectItem>
+      <SelectItem value="developer" className="cursor-pointer">Developer</SelectItem>
+      <SelectItem value="designer" className="cursor-pointer">Designer</SelectItem>
+      <SelectItem value="product_manager" className="cursor-pointer">Product Manager</SelectItem>
+      <SelectItem value="other" className="cursor-pointer">Other</SelectItem>
+    </SelectContent>
+  </Select>
+</div>
 
           <div className="flex items-center space-x-2">
-            <Checkbox id="agreeTerms" checked={formData.agreeTerms} onCheckedChange={handleCheckboxChange} />
+            <Checkbox className="bg-white" id="agreeTerms" checked={formData.agreeTerms} onCheckedChange={handleCheckboxChange} />
             <Label htmlFor="agreeTerms" className="text-sm">
               I agree to the terms and conditions
             </Label>

@@ -19,21 +19,30 @@
 const express = require('express');
 const router = express.Router();
 const { protect } = require('../middleware/authMiddleware');
+const { registerUser, loginUser } = require('../middleware/auth');
 const { login, register, getUserProfile } = require('../controllers/authController');
 
-router.post('/login', login);
-router.post('/register', register);
+// router.post('/login', login);
+// router.post('/register', register);
 router.get('/user', protect, getUserProfile);
 
-// Sample user data - replace with actual authentication logic
-// router.get('/user', (req, res) => {
-//     const user = {
-//       id: '12345',
-//       name: 'John Doe',
-//       email: 'john.doe@example.com',
-//     };
+router.post('/register', async (req, res) => {
+    try {
+      const result = await registerUser(req.body);
+      res.json(result);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  });
   
-//     res.json(user); // Send the user data to the frontend
-//   });
+  router.post('/login', async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const result = await loginUser(email, password);
+      res.json(result);
+    } catch (error) {
+      res.status(401).json({ error: error.message });
+    }
+  });
 
 module.exports = router;

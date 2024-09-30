@@ -57,7 +57,7 @@ const Auth: React.FC = () => {
       <Card className="relative z-10 w-[400px] bg-gradient-to-br from-zinc-800 to-zinc-900 border-4 border-zinc-700 hover:border-zinc-600 transition-colors">
         <CardHeader>
           <CardTitle className="text-zinc-400">Welcome to Bug Tracker</CardTitle>
-          <CardDescription>Manage your projects and track bugs efficiently.</CardDescription>
+          <CardDescription className="text-zinc-400">Manage your projects and track bugs efficiently.</CardDescription>
         </CardHeader>
         <CardContent>
           <Tabs value={activeTab} onValueChange={setActiveTab}>

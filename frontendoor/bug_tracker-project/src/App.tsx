@@ -11,31 +11,54 @@ const App: React.FC = () => {
 };
 
 export default App;
-  
 
 
+//==================New Code for Single onwer Fecth data=================================
 
+// import React from 'react';
+// import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+// import LoginForm from './components/auth/LoginForm';
+// import AdminProjectsView from './components/AdminProjectsView';
+// import UserProjectsView from './components/UserProjectsView';
+// import Dashboard from './components/dashboard/Dashboard';
+// import ProtectedRoute from './components/ProtectedRoute';
+// import { useAuth } from './contexts/AuthContext';
 
+// const App: React.FC = () => {
+//   const { userRole } = useAuth();
 
-
-
-
-
-
-// import LoginForm  from './components/auth/LoginForm'
-// import RegistrationForm from './components/auth/RegistrationForm'
-
-
-// function App() {
 //   return (
-//     <div className="flex items-center justify-center min-h-screen">
-//       {/* <LoginForm /> */}
-//       <RegistrationForm />
-//     </div>
-//   )
-// }
+//     <Router>
+//       <Routes>
+//         <Route path="/login" element={<LoginForm />} />
+//         <Route 
+//           path="/projects" 
+//           element={
+//             <ProtectedRoute allowedRoles={['admin', 'user']}>
+//               {userRole === 'admin' ? <AdminProjectsView /> : <UserProjectsView />}
+//             </ProtectedRoute>
+//           } 
+//         />
+//         <Route 
+//           path="/dashboard" 
+//           element={
+//             <ProtectedRoute allowedRoles={['admin', 'user']}>
+//               <Dashboard />
+//             </ProtectedRoute>
+//           } 
+//         />
+//         <Route path="/" element={<Navigate to="/login" replace />} />
+//       </Routes>
+//     </Router>
+//   );
+// };
 
-// export default App
+// export default App;
+
+
+
+
+
 
 
 

@@ -47,21 +47,21 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
     switch (id) {
       case 'myTasks':
         return (
-          <Card className="w-full bg-gradient-to-br from-zinc-800 to-zinc-900 border-zinc-700 hover:border-zinc-600 transition-colors">
+          <Card className="w-full bg-gradient-to-br from-zinc-800 to-zinc-700 border border-zinc-700 hover:border-zinc-600 transition-colors">
             <CardHeader>
               <CardTitle className="text-xl flex items-center text-white">
                 <Avatar name={userName} size="60" round={true} />
-                My tasks
+                <span className="ml-2">My tasks</span>
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex gap-4 mb-4">
-                <Button variant="ghost" className="flex-1 bg-gradient-to-br from-zinc-800 to-zinc-900  text-white">Upcoming</Button>
-                <Button variant="ghost" className="flex-1 bg-gradient-to-br from-zinc-800 to-zinc-900  text-white">Overdue (2)</Button>
-                <Button variant="ghost" className="flex-1 bg-gradient-to-br from-zinc-800 to-zinc-900  text-white">Completed</Button>
+                <Button variant="ghost" className="flex-1 bg-zinc-700 border-2 hover:border-zinc-600 text-white">Upcoming</Button>
+                <Button variant="ghost" className="flex-1 bg-zinc-700 border-2 hover:border-zinc-600 text-white">Overdue (2)</Button>
+                <Button variant="ghost" className="flex-1 bg-zinc-700 border-2 hover:border-zinc-600 text-white">Completed</Button>
               </div>
-              <hr className="border-zinc-600 m-4 w-100" />
-              <Button variant="outline" className="w-30 bg-zinc-800 text-white justify-start">
+              <hr className="border-zinc-600  m-4 w-100" />
+              <Button variant="outline" className="w-30 bg-zinc-800 hover:border-zinc-600 text-white justify-start">
                 <span className="mr-2">+</span> Create task
               </Button>
             </CardContent>
@@ -69,7 +69,7 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
         );
       case 'projects':
         return (
-          <Card className="w-full bg-gradient-to-br from-zinc-800 to-zinc-900 border-zinc-700 hover:border-zinc-600 transition-colors text-white p-6 rounded-lg shadow-lg">
+          <Card className="w-full bg-gradient-to-br from-zinc-800 to-zinc-700 border-zinc-700 hover:border-zinc-600 transition-colors text-white p-6 rounded-lg shadow-lg">
             <div className="mb-6">
               <h2 className="text-lg font-bold mb-4">Projects</h2>
               <hr className="border-zinc-600 m-4 w-100" />
@@ -99,7 +99,7 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
         );
       case 'people':
         return (
-          <Card className="w-full bg-gradient-to-br from-zinc-800 to-zinc-900 border-zinc-700 hover:border-zinc-600 transition-colors text-white p-6 rounded-lg shadow-lg">
+          <Card className="w-full bg-gradient-to-br from-zinc-800 to-zinc-700 border-zinc-700 hover:border-zinc-600 transition-colors text-white p-6 rounded-lg shadow-lg">
             <div className="mb-6">
               <h2 className="text-lg font-bold mb-4">People</h2>
               <hr className="border-zinc-600 m-4 w-100" />
@@ -119,10 +119,10 @@ const MainContent: React.FC<MainContentProps> = ({ userName }) => {
         );
       case 'dragAndDrop':
         return (
-          <div className="w-full flex items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-900 border border-zinc-700 hover:border-zinc-600 transition-colors text-white h-64 rounded-lg shadow-md p-8">
+          <div className="w-full flex items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-700 border border-zinc-700 hover:border-zinc-600 transition-colors text-white h-64 rounded-lg shadow-md p-8">
             <div className="text-center">
               <p className="text-lg mb-4">Drag and drop new widgets</p>
-              <Button variant="outline" className="bg-gray-700 text-white">
+              <Button variant="outline" className="bg-zinc-700 text-white">
                 <span className="mr-2">
                   <span className="mr-2 inline-block w-4 h-4">🎨</span>
                 </span>
