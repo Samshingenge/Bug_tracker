@@ -75,3 +75,11 @@ Database:
 
 MySQL for relational data like user management, projects, and tasks.
 MongoDB (optional) if a flexible schema is required for tracking bug metadata or audit logs.
+
+How run it:
+1.git clone.
+2. npm install.
+3. npm run dev.
+
+Changes :
+- .env database mongodb implementation
